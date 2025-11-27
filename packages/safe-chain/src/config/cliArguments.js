@@ -2,7 +2,7 @@
  * @type {{loggingLevel: string | undefined, skipMinimumPackageAge: boolean | undefined, minimumPackageAgeHours: string | undefined, includePython: boolean}}
  */
 const state = {
-  loggingLevel: undefined,
+  loggingLevel: 'silent',
   skipMinimumPackageAge: undefined,
   minimumPackageAgeHours: undefined,
   includePython: false,
