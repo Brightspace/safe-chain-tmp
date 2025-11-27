@@ -2,7 +2,7 @@
  * @type {{loggingLevel: string | undefined, skipMinimumPackageAge: boolean | undefined, includePython: boolean}}
  */
 const state = {
-  loggingLevel: undefined,
+  loggingLevel: 'silent',
   skipMinimumPackageAge: undefined,
   includePython: false,
 };
