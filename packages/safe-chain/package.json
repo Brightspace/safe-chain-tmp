@@ -1,6 +1,6 @@
 {
   "name": "@d2l/safe-chain",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "test": "node --test --experimental-test-module-mocks 'src/**/*.spec.js'",
     "test:watch": "node --test --watch --experimental-test-module-mocks 'src/**/*.spec.js'",
