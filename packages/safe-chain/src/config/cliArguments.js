@@ -16,7 +16,7 @@ const SAFE_CHAIN_ARG_PREFIX = "--safe-chain-";
  */
 export function initializeCliArguments(args) {
   // Reset state on each call
-  state.loggingLevel = undefined;
+  state.loggingLevel = 'silent';
   state.skipMinimumPackageAge = undefined;
   state.minimumPackageAgeHours = undefined;
 
