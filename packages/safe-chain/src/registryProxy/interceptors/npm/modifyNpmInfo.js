@@ -6,6 +6,31 @@ const state = {
   hasSuppressedVersions: false,
 };
 
+const allowedBasePackages = new Set([
+  '@brightspace-hmc',
+  '@brightspace-ui',
+  '@brightspace-ui-labs',
+  'd2l-hypermedia-constants',
+  'd2l-license-checker',
+  'd2l-npm-login',
+  'd2l-test-reporting',
+  'eslint-config-brightspace'
+]);
+
+/**
+ * @param {string | undefined} packageName
+ * @returns {boolean}
+ */
+function isPackageExemptFromAgeCheck(packageName) {
+  if (packageName === undefined) return false;
+  const basePackageName = packageName.startsWith("@")
+    ? packageName.split("/")[0] : packageName;
+  if (allowedBasePackages.has(basePackageName)) {
+    return true;
+  }
+  return false;
+}
+
 /**
  * @param {NodeJS.Dict<string | string[]>} headers
  * @returns {NodeJS.Dict<string | string[]>}
@@ -78,9 +103,10 @@ export function modifyNpmInfoResponse(body, headers) {
       }))
       .filter((x) => x.version !== "created" && x.version !== "modified");
 
+    const isExempt = isPackageExemptFromAgeCheck(bodyJson.name);
     for (const { version, timestamp } of versions) {
       const timestampValue = new Date(timestamp);
-      if (timestampValue > cutOff) {
+      if (!isExempt && timestampValue > cutOff) {
         deleteVersionFromJson(bodyJson, version);
         if (headers) {
           // When modifying the response, the etag and last-modified headers

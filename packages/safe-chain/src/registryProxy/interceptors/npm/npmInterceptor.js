@@ -24,30 +24,6 @@ export function npmInterceptorForUrl(url) {
   return undefined;
 }
 
-const allowedBasePackages = new Set([
-  '@brightspace-hmc',
-  '@brightspace-ui',
-  '@brightspace-ui-labs',
-  'd2l-license-checker',
-  'd2l-npm-login',
-  'd2l-test-reporting',
-  'eslint-config-brightspace'
-])
-
-/**
- * @param {string | undefined} packageName
- * @returns {boolean}
- */
-function isAllowedPackage(packageName) {
-  if (packageName === undefined) return false;
-  const basePackageName = packageName.startsWith("@")
-    ? packageName.split("/")[0] : packageName;
-  if (allowedBasePackages.has(basePackageName)) {
-    return true;
-  }
-  return false;
-}
-
 /**
  * @param {string} registry
  * @returns {import("../interceptorBuilder.js").Interceptor}
@@ -63,11 +39,9 @@ function buildNpmInterceptor(registry) {
       reqContext.blockMalware(packageName, version);
     }
 
-    if (!isAllowedPackage(packageName)) {
-      if (!skipMinimumPackageAge() && isPackageInfoUrl(reqContext.targetUrl)) {
-        reqContext.modifyRequestHeaders(modifyNpmInfoRequestHeaders);
-        reqContext.modifyBody(modifyNpmInfoResponse);
-      }
+    if (!skipMinimumPackageAge() && isPackageInfoUrl(reqContext.targetUrl)) {
+      reqContext.modifyRequestHeaders(modifyNpmInfoRequestHeaders);
+      reqContext.modifyBody(modifyNpmInfoResponse);
     }
   });
 }
