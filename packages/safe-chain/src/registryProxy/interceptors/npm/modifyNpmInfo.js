@@ -16,6 +16,7 @@ const allowedBasePackages = new Set([
   'd2l-test-reporting',
   'eslint-config-brightspace',
   'frau-publisher',
+  'ifrau',
   'messageformat-validator'
 ]);
 
