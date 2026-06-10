@@ -15,6 +15,7 @@ const allowedBasePackages = new Set([
   'd2l-npm-login',
   'd2l-test-reporting',
   'eslint-config-brightspace',
+  'frau-jwt',
   'frau-publisher',
   'ifrau',
   'messageformat-validator'
